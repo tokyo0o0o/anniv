@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hidden Love Letter</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            background: url('fairytale-bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            position: relative;
+        }
+
+        .content {
+            padding: 40px;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 3em;
+            text-shadow: 2px 2px 5px #a0522d;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+            text-shadow: 1px 1px 3px #000;
+        }
+
+        .lock {
+            font-size: 60px;
+            display: block;
+            margin: 20px auto;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        button {
+            background-color: #ff69b4;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            color: #fff;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff85c1;
+        }
+
+        .hidden-message {
+            display: none;
+            padding: 30px;
+            border: 3px solid #fff;
+            background: rgba(255, 255, 255, 0.8);
+            margin-top: 30px;
+            border-radius: 20px;
+            color: #333;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .hidden-message h2 {
+            color: #d2691e;
+        }
+
+        .back-button {
+            position: fixed;
+            bottom: 20px;
+            right: 50px;
+            padding: 10px 20px;
+            background: #FFD700;
+            color: #4A2F09;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-button:hover {
+            background: #FFD700;
+            transform: scale(1.05);
+        }
+        .blurred-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('fairytale-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    filter: blur(1px);
+    z-index: -1;
+}
+    </style>
+    <script>
+        function checkDate() {
+            const today = new Date();
+            const unlockDate = new Date('2025-05-31');
+
+            if (today >= unlockDate) {
+                document.getElementById('lockedMessage').style.display = 'none';
+                document.getElementById('loveLetter').style.display = 'block';
+            } else {
+                alert("Be patient, bab! The message will unlock on May 31, 2025.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="blurred-bg"></div>
+    <div class="content">
+        <h1>Something..</h1>
+        <p>This something is locked until our special day! 💖</p>
+
+        <div id="lockedMessage">
+            <span class="lock">🔒</span>
+            <p>Come back on May 31, 2025, to unlock this something.</p>
+            <button onclick="checkDate()">Unlock</button>
+        </div>
+
+        <div id="loveLetter" class="hidden-message">
+            <h2>Text</h2>
+            <p>Text</p>
+        </div>
+    </div>
+
+    <a href="/anniv/surprise/surprise.html" class="back-button">⟵ Back to Home</a>
+
+</body>
+</html>

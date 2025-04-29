@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Puzzle</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="puzzle.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600&family=Raleway:wght@300;400;600&display=swap');
+
+        body {
+    background: url('fairytale-bg.jpg') no-repeat center center/cover;
+    background-attachment: fixed;
+    background-size: cover;
+    position: relative;
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Adding a blurred overlay */
+body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(4px); /* Adjust blur intensity */
+    -webkit-backdrop-filter: blur(4px); /* Safari support */
+    background: rgba(0, 0, 0, 0.3); /* Optional: Adds slight dimming */
+    z-index: -1;
+}
+
+/* Adding sparkles effect */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('sparkles.png'); /* Transparent sparkles image */
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: -1;
+}
+
+
+        header {
+    text-shadow: 3px 3px 15px rgba(145, 94, 17, 0.9);
+    text-align: center; /* Ensures text is centered */
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;   
+    font-size: 50px;
+    color: #FFD700; /* Gold color */
+    text-shadow: 0 6px 18px rgba(29, 15, 2, 0.9);
+    margin-bottom: 10px; /* Ensures space between h1 and p */
+    margin-top: 10px;
+}
+
+p {
+    color: #FFF5E1; /* Soft white */
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.6);
+    font-size: 20px;
+    font-family: 'Playfair Display', serif;
+    margin-top: 0px; /* Remove extra spacing */
+}
+
+
+        .puzzle-container {
+            display: grid;
+            grid-template-columns: repeat(3, 150px);
+            grid-template-rows: repeat(3, 150px);
+            gap: 2px;
+            margin: 20px auto;
+            width: 456px;
+            height: 456px;
+            position: relative;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(255, 192, 203, 0.5);
+            transition: transform 0.3s ease-in-out;
+            margin-top: -10px;
+        }
+
+        .puzzle-piece {
+            width: 150px;
+            height: 150px;
+            background-size: 450px 450px;
+            cursor: grab;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .puzzle-piece:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(255, 182, 193, 0.8);
+        }
+
+        .popup, #final-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    color: #333; /* Darker text for better visibility */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    opacity: 1;
+    animation: fadeIn 0.5s forwards;
+    text-shadow: none;
+}
+
+#final-popup p {
+    font-size: 18px; /* Adjust size */
+    font-weight: bold; /* Make it stand out */
+    color: #333; /* Darker color */
+}
+
+
+        #memory-text {
+    color: #5A2A27;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Adds subtle depth */
+}
+
+
+        button {
+            padding: 10px 15px;
+            margin: 10px;
+            border: none;
+            background: linear-gradient(90deg, #E07A5F, #FFB347);
+            color: #1B1F3A;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 6px 18px rgba(255, 153, 51, 0.9);
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #E85D04, #FFBA08);
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(255, 20, 147, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .back-button {
+    position: absolute;
+    bottom: 20px;
+    right: 50px;
+    padding: 10px 20px;
+    background: rgba(255, 215, 0, 0.8); /* Gold with transparency */
+    color: #4A2F09; /* Dark brown */
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+        .back-button:hover {
+    background: rgba(255, 215, 0, 1); /* Brighter gold on hover */
+    transform: scale(1.05);
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Piece Together Our Love</h1>
+        <p>Rearrange the pieces to reveal a special memory!</p>
+    </header>
+    
+    <p id="score" style="margin-top: -15px;">Puzzle: 1 / 10</p>
+    <div class="puzzle-container" id="puzzle-board"></div>
+    
+    <div style="display: flex; gap: 10px; justify-content: center;">
+        <button onclick="shufflePuzzle()">Shuffle</button>
+        <button onclick="submitPuzzle()">Submit</button>
+    </div>
+    <p id="message">Solve the puzzle to see the special memory!</p>
+    
+    <div id="popup" class="popup">
+        <h2>Our Special Memory</h2>
+        <p id="memory-text">Remember this? First pic, first meet, first hug, first kiss and first meal together. 
+            Grabe noh, after 7 days meet agad tapos online pa tayo nagkakilala. Di na talaga natin inintindi yung mga pwedeng mangyari basta ako sobrang excited lang ako na makita ka nito.
+            Sobrang saya na may halong hiya pa HAHAHA but overall sobrang worth it!! 💖</p>
+           </p>
+        <button onclick="nextPuzzle()">Next Puzzle</button>
+    </div>
+
+    <div id="final-popup">
+        <h2>Congratulations!</h2>
+        <p>You completed all 10 puzzles! 🎉</p>
+        <p>Are you ready for the next surprise?</p>
+        <button onclick="redirectToHome()">Yes</button>
+    </div>
+    <a href="../home.html" class="back-button">⟵ Back to Home</a>
+
+    <script>
+        const imageSources = [
+            'puzzle1.jpg', 'puzzle2.jpg', 'puzzle3.jpg', 
+            'puzzle4.jpg', 'puzzle5.jpg', 'puzzle6.jpg', 
+            'puzzle7.jpg', 'puzzle8.jpg', 'puzzle9.jpg',
+            'puzzle10.jpg'
+        ];
+        let currentPuzzle = 0;
+        let rows = 3, cols = 3;
+        let pieces = [];
+        let board = document.getElementById("puzzle-board");
+        let draggedPiece = null;
+        
+        const memoryTexts = [
+    "none",
+    "Our first monthsary!! medyo napaaga lang na celebration kasi may alis ka pa sa mismong mothsary hehe.. first antips!! sorry kasi di ako game sa hanging bridge ✌️ sobrang saya nung day na yun, lalo na yung part na gumagawa tayo ng way to have a pic together HAHAHAHAHA",
+    "GRABE!!! Napaka tamis, mamahalin, luluhuran at papakasalan. Sobrang unexpected nung flower na binigay mo sa akin nito huhu first flower na natanggap ko (sorry di ko nauwi 😢). Super appreciated ko po ito mahal!!",
+    "Yeyyy!! Our first picnic dateee!! Sobrang peaceful lang, may food tayo na dala, may mahinang music haha, at may magandang view. Sobrang sarap lang sa feeling na kasama kita sa mga ganitong moments. 💖",
+    "First fireworks na pinanood natin together!! Andaming nangyari sa araw na yun, may mga unexpected na nangyari pero sobrang worth it lahat kasi kasama kita. 💖",
+    "Alam mo ba dati nangangarap lang ako na pumunta sa museum na kasama yung taong mahal ko. Kasi parang ang chill lang, pagmamasdan nyo lang together yung mga artworks tas mag picture lang ganon. Tapos ito? our first museum together! Sobrang saya lang na natupad na yung isa sa mga dream ko with my partner and mas masaya kasi ikaw yung kasama ko. 😘",
+    "Obviously, our first KTV!! Ikaw ha, galing mo pala kumanta tsk.. sobrang nakakakiligggg!!! I LOVE YOUUUU!!",
+    "Of course, may first cine rin tayo syempre hehe may mga kasama nga lang hehe don't worry next time tayo nalang dalawa 🥰",
+    "Naaalala mo ba to? HAHAHHAHAHA sobrang LT talaga nito HAHAHAHA kada padyak mo sa vikings parang masisira na eh HAHAHAHAH sobrang takot ako nito kaso takot ka rin kaya parang nawawala takot ko dahil sayo HAHAHAHA first perya together dabest!! 🎡",
+    "And of course, our first staycation together!! Sobrang sulit to the point na ayaw ko na umuwi hays, how I wish na ganon nalang tayo palagi. 😢 But I know darating din tayo sa panahon na yon!! I love you so much mahal ko!!"
+];
+
+
+        function createPuzzle() {
+            board.innerHTML = '';
+            pieces = [];
+            let indexes = [...Array(rows * cols).keys()];
+            indexes.sort(() => Math.random() - 0.5);
+            
+            indexes.forEach((index) => {
+                let piece = document.createElement("div");
+                piece.classList.add("puzzle-piece");
+                piece.style.backgroundImage = `url(${imageSources[currentPuzzle]})`;
+                piece.style.backgroundPosition = `${-(index % cols) * 150}px ${-Math.floor(index / cols) * 150}px`;
+                piece.dataset.index = index;
+                piece.draggable = true;
+                piece.addEventListener("dragstart", dragStart);
+                piece.addEventListener("dragover", dragOver);
+                piece.addEventListener("drop", drop);
+                board.appendChild(piece);
+                pieces.push(piece);
+            });
+            document.getElementById("score").textContent = `Puzzle: ${currentPuzzle + 1} / 10`;
+        }
+
+        function dragStart(event) {
+            draggedPiece = event.target;
+        }
+
+        function dragOver(event) {
+            event.preventDefault();
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            if (draggedPiece !== event.target) {
+                let tempPosition = draggedPiece.style.backgroundPosition;
+                draggedPiece.style.transition = "transform 0.3s ease"; // Add smooth transition
+                event.target.style.transition = "transform 0.3s ease"; // Add smooth transition
+                draggedPiece.style.backgroundPosition = event.target.style.backgroundPosition;
+                event.target.style.backgroundPosition = tempPosition;
+                
+                // Small bounce effect for smoother feedback
+                draggedPiece.style.transform = "scale(1)";
+                event.target.style.transform = "scale(1)";
+
+                setTimeout(() => {
+                    draggedPiece.style.transform = "scale(1)";
+                    event.target.style.transform = "scale(1)";
+                }, 200);
+            }
+        }
+
+        function submitPuzzle() {
+            let correct = pieces.every((piece, index) => 
+                piece.style.backgroundPosition === `${-(index % cols) * 150}px ${-Math.floor(index / cols) * 150}px`
+            );
+            if (correct) {
+                document.getElementById("message").textContent = "You solved it! Here's our special memory.";
+                document.getElementById("popup").style.display = "block";
+            } else {
+                alert("The puzzle is not yet solved correctly. Keep trying!");
+            }
+        }
+
+
+
+        function nextPuzzle() {
+    currentPuzzle++;
+    if (currentPuzzle < imageSources.length) {
+        document.getElementById("memory-text").textContent = memoryTexts[currentPuzzle]; // Update memory text
+        createPuzzle();
+        document.getElementById("popup").style.display = "none";
+    } else {
+        document.getElementById("popup").style.display = "none";
+        document.getElementById("final-popup").style.display = "block";
+    }
+}
+
+
+        function shufflePuzzle() {
+            createPuzzle();
+        }
+        
+        function redirectToHome() {
+            window.location.href = "../home.html";
+        }
+
+        window.onload = createPuzzle;
+    </script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Love Story</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="timeline.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('fairytale-bg.jpg') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #F5E6C4;
+            font-family: 'Raleway', sans-serif;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit; /* Use the same background as body */
+            filter: blur(2px); /* Adjust blur intensity */
+            z-index: -1;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;    
+            font-size: 50px;
+            margin-bottom: 10px;
+            color: #FFD700; /* Gold color */
+            text-shadow: 0 6px 18px rgba(29, 15, 2, 0.9);
+            transform: translateY(-38px);
+            margin-top: 2.9%;
+        } 
+
+
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 60px;
+            max-width: 1000px;
+            margin: auto;
+            margin-left:80px; /* Move it to the left */
+            justify-content: start; /* Aligns items to the left */
+            margin-top: 1px;
+        }
+
+        .card {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            border-radius: 15px;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+            margin-left: -150px;
+            margin: -20px; /* Adjusts left and right spacing */
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #fff;
+            padding: 5px; /* Ensures consistent padding */
+            box-sizing: border-box; /* Prevents size expansion */
+        }
+        .card-front {
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        }
+        .card-back {
+            font-size: 12px; /* Adjust size as needed */
+            line-height: 1.4; /* Improves readability */
+            background: linear-gradient(135deg, #fad0c4, #ffdde1);
+            transform: rotateY(180deg);
+            color: #444;
+            padding: 10px;
+            text-align: center;
+        }
+.card-back img {
+    width: 150px; /* Set to your preferred size */
+    height: 150px;
+    object-fit: cover; /* Ensures the image fills the area */
+    border-radius: 10px;
+}
+        .open-btn {
+            background: #ff4081;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .back-button {
+    position: absolute;
+    bottom: 20px;
+    right: 50px;
+    padding: 10px 20px;
+    background: #FFD700;
+    color: #4A2F09; /* Dark brown */
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.back-button:hover {
+    background: #FFD700; /* Brighter gold on hover */
+    transform: scale(1.05);
+}
+    </style>
+</head>
+<body>
+    <h1>Celebrating Ten Months of Love</h1>
+    <div class="timeline">
+        <div class="card" onclick="flipCard(this)">
+            <div class="card-front"><button class="open-btn">Open</button></div>
+            <div class="card-back"><h2>Oficially AshiNyx</h2><img src="Image1.jpg" alt="First date"><p>One of our perfect and best day ever..</p></div>
+        </div>
+        <div class="card" onclick="flipCard(this)">
+            <div class="card-front"><button class="open-btn">Open</button></div>
+            <div class="card-back"><h2>Second Monthsary</h2><img src="Image2.jpg" alt="First date"><p>Even though we haven't spent the whole month together, we're still happy and full of love."</p></div>
+        </div>
+        <div class="card" onclick="flipCard(this)">
+            <div class="card-front"><button class="open-btn">Open</button></div>
+            <div class="card-back"><h2>Third Monthsary</h2><img src="Image3.jpg" alt="Anniversary"><p>Finally, celebrating our monthsary together..</p></div>
+        </div>
+        <div class="card" onclick="flipCard(this)">
+            <div class="card-front"><button class="open-btn">Open</button></div>
+            <div class="card-back"><h2>Fourth Monthsary</h2><img src="Image4.jpg" alt="Trip"><p>September, a month full of gala and celebrating monthsary together.. </p></div>
+        </div>
+        <div class="card" onclick="flipCard(this)">
+            <div class="card-front"><button class="open-btn">Open</button></div>
+            <div class="card-back"><h2>Fifth Monthsary</h2><img src="Image5.jpg" alt="Surprise"><p>Another happy month together..</p></div>
+        </div>
+        <div class="card" onclick="flipCard(this)">
+            <div class="card-front"><button class="open-btn">Open</button></div>
+            <div class="card-back"><h2>Sixth Monthsary</h2><img src="Image6.jpg" alt="Family"><p>Trying new things together..</p></div>
+        </div>
+        <div class="card" onclick="flipCard(this)">
+            <div class="card-front"><button class="open-btn">Open</button></div>
+            <div class="card-back"><h2>Seventh Monthsary</h2><img src="Image7.jpg" alt="Holiday"><p>Creating more memories with you..</p></div>
+        </div>
+        <div class="card" onclick="flipCard(this)">
+            <div class="card-front"><button class="open-btn">Open</button></div>
+            <div class="card-back"><h2>Eight Monthsary</h2><img src="Image8.jpg" alt="Dream date"><p>Happiness Overload..</p></div>
+        </div>
+        <div class="card" onclick="flipCard(this)">
+            <div class="card-front"><button class="open-btn">Open</button></div>
+            <div class="card-back"><h2>Ninth Monthsary</h2><img src="Image9.jpg" alt="Engagement"><p>No problem or challenges can separate us..</p></div>
+        </div>
+        <div class="card" onclick="flipCard(this)">
+            <div class="card-front"><button class="open-btn">Open</button></div>
+            <div class="card-back"><h2>Tenth Monthsary</h2><img src="Image10.jpg" alt="Future"><p>Stronger and will always choose each other until the end...</p></div>
+        </div>
+    </div>
+    <a href="../home.html" class="back-button">⟵ Back to Home</a>
+
+    <script>
+        function flipCard(card) {
+            card.classList.toggle('flipped');
+        }
+    </script>
+</body>
+</html>

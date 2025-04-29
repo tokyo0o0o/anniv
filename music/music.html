@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Our Love Playlist</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="music.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('fairytale-bg.jpg') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #F5E6C4;
+            font-family: 'Raleway', sans-serif;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            filter: blur(4px);
+            z-index: -1;
+        }
+
+        header {
+            text-shadow: 3px 3px 15px rgba(145, 94, 17, 0.9);
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 50px;
+            color: #FFD700;
+            text-shadow: 0 6px 18px rgba(29, 15, 2, 0.9);
+            margin-bottom: 10px;
+            margin-top: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            width: 80%;
+            max-width: 600px;
+            justify-content: center;
+            margin-left: -800px;
+            margin-top: 20px;
+        }
+
+        .song-list {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+            font-size: 1.2rem;
+        }
+
+        .song-item {
+            padding: 15px;
+            border-radius: 8px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .song-item:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .player-section {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 300px;
+            margin-right: -600px;
+        }
+
+        .player-container {
+    width: 100%;
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+    margin-top: -650px;
+    min-height: 300px; /* Set a minimum height instead of large padding-bottom */
+    overflow: hidden; /* Hide overflow if content exceeds */
+}
+
+
+        .lyrics-explanation {
+            margin-top: 20px;
+            width: 93%;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            color: #0a0a09; /* Change this color to whatever you prefer */
+        }
+
+        .back-button {
+            position: absolute;
+            bottom: 20px;
+            right: 50px;
+            padding: 10px 20px;
+            background: rgba(255, 215, 0, 0.8);
+            color: #4A2F09;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-button:hover {
+            background: rgba(255, 215, 0, 1);
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .player-container,
+            .lyrics-explanation {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Let's hear our favorite songs..</h1>
+    </header>
+
+    <div class="container">
+        <div class="song-list">
+            <h2>🎶 Select a Song 🎶</h2>
+            <div class="song-item" onclick="playSong(0)">1. If - Bread</div>
+            <div class="song-item" onclick="playSong(1)">2. You're Gonna Live Forever in Me</div>
+            <div class="song-item" onclick="playSong(2)">3. Nothing</div>
+            <div class="song-item" onclick="playSong(3)">4. The Most Beautiful Thing</div>
+            <div class="song-item" onclick="playSong(4)">5. Blue</div>
+            <div class="song-item" onclick="playSong(5)">6. An Art Gallery Could Never Be As Unique As You</div>
+            <div class="song-item" onclick="playSong(6)">7. Padaba Taka</div>
+            <div class="song-item" onclick="playSong(7)">8. Palagi</div>
+            <div class="song-item" onclick="playSong(8)">9. Marry You</div>
+            <div class="song-item" onclick="playSong(9)">10. Beginning Middle End</div>
+        </div>
+    </div>
+
+    <div class="player-section">
+        <div class="player-container">
+            <div id="video-container">
+                <video id="video-player" width="100%" height="315" controls>
+                    <source id="video-source" src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <!-- Lyrics explanation directly under the video -->
+            <div class="lyrics-explanation" id="lyrics-explanation">
+                <p>Here's some songs that reminds me of us and the beautiful memories we’ve shared. 💖</p>
+            </div>
+        </div>
+    </div>
+
+    <a href="../home.html" class="back-button">⟵ Back to Home</a>
+
+    <script>
+        const videos = [
+            "if.mp4", "forever.mp4", "nothing.mp4", "beautiful.mp4", "blue.mp4",
+            "gallery.mp4", "padaba.mp4", "palagi.mp4", "marryyou.mp4", "beginning.mp4"
+        ];
+
+        const explanations = [
+            "You know what, I don't appreciate this song before but now I do. It reminds me of you and I felt the warm hugs from you. <br><br> Nararamdaman ko rin 'yong peace at 'yong love mo mismo sa akin. <br><br>And if there's an if I want to express, it's this: if we could be together forever, I would love you until the end of time. <br><br>I love you! ❤️",
+            "Just like the song, I guarantee you, you're gonna live forever in me. <br><br>You're the one who makes me feel alive and I want to be with you forever. <br><br>You're my everything, bab. <br><br>And I can't ask for more kasi I have you na, 'yong matagal ko ng hinihintay. 👩‍❤️‍👩",
+            "Nothing, sabi nga there's nothing like doing nothing with you and I love every moment of it. <br><br>Every moment spent with you is a treasure, and I wouldn't trade it for anything in the world. <br><br>You're my favorite person to do nothing with. <br><br>Ikaw lang gusto kong makasama sa hirap, ginhawa, sa masasaya at boring nating mga araw. 💖",
+            "You're the most beautiful thing that has ever happened to me. <br><br>Every time I look at you, I see beauty in everything. Minsan nga napapangiti nalang ako wondering if sa akin ka ba talaga hehe<br><br>If you're the most beautiful thing that has happened to me of course I am the most luckiest girl in the world having you in my life. <br><br>I love you more than words can say. 💕",
+            "I'll start this with—know you're all that I want this life. <br><br>Ikaw lang yung gusto ko na makasama sa lahat ng bagay. <br><br>You're the one I want to share my life with, and I can't wait to see what the future holds for us. <br><br>You're my everything, and I also can't wait to spend the rest of my life with you. 💞",
+            "This song is indeed true—because you’re more beautiful than any artwork.<br><br>Even the best art gallery can't show how amazing you are.<br><br>You're my one of a kind masterpiece, and I’m so lucky to have you.<br><br>Walang ibang makakapantay sa’yo. You’re truly unique, and I hope you appreciate it. 💖🎨",
+            "Padaba taka, bab. <br><br>At katulad sa kanta, wala akong ibang mamahalin kundi ikaw lang. <br><br>You're the one I want to be with forever, ikaw lang ang mamahalin ko hanggang sa pagtanda natin. <br><br>Hindi ako magsasawang paulit-ulit na sabihing ikaw lang ang mamahalin ko. 💘",
+            "My Palagi, 'di man tayo palaging masaya, napapadalas man ang away bati natin pero sa huli—palagi, palagi pa rin tayong babalik sa isa't isa. <br><br>Alam kong mahirap ang lahat lalo na't wala namang perpekto sa mundo pero alam kong palaging pagmamahal ang laging nangingibabaw sa lahat. <br><br>Kaya dapat palagi nating aayusin lahat at palaging pipiliin ang isa't isa. Palagi kitang mamahalin, jurisha ko! 💖",
+            "I can't wait the moment to marry you. <br><br>Yes bab, I’d marry you a thousand times over. <br><br>You're the one I want to spend my life with, and I can't wait to make you my forever. <br><br>You're my soulmate. I am sure na ikaw na 'yong<br>gusto kong pakasalan sa harap ni Lord<br>so please marry me soon!! 💍",
+            "<br>Sobrang new ng song na 'to for me. Narinig ko 'to sayo and it's feel like a lifetime. <br><br>You're my beginning, my middle, and my end.<br><br>I’ll choose you every day, in every page of our love.<br><br>Kahit ilang plot twists pa ang dumaan,ikaw pa rin ang ending ko! 🌟<br>"
+        ];
+
+        const videoPlayer = document.getElementById("video-player");
+        const videoSource = document.getElementById("video-source");
+        const lyricsBox = document.getElementById("lyrics-explanation");
+
+        function playSong(index) {
+            videoSource.src = videos[index];
+            videoPlayer.load();
+            videoPlayer.play();
+            lyricsBox.innerHTML = `<p>${explanations[index]}</p>`;
+        }
+    </script>
+</body>
+</html>
